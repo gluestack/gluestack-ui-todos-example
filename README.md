@@ -20,13 +20,25 @@ $ yarn
 # Usage
 Run the project on web by 
 ```sh
+$ npm run web
+```
+or if you use yarn then 
+```sh
 $ yarn web
 ```
 Run the project on ios by 
 ```sh
+$ npm run ios 
+```
+or if you use yarn then 
+```sh
 $ yarn ios 
 ```
 Run the project on android by
+```sh
+$ npm run android
+```
+or if you use yarn then 
 ```sh
 $ yarn android
 ```
