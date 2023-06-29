@@ -17,7 +17,7 @@ or if you use yarn
 ```sh
 $ yarn 
 ```
-#usage
+# Usage
 Run the project on web by 
 ```sh
 $ yarn web
