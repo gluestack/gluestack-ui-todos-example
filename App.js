@@ -96,7 +96,7 @@ const App = () => {
                 <HStack my="$4" alignItems="center">
                   <ProgressBar
                     completedTasks={getCompletedTasks(todos, lastItemSelected)}
-                    totalTasks={todos.length + 1}
+                    totalTasks={item !== "" ? todos.length + 1 : todos.length}
                   />
                 </HStack>
               </VStack>
@@ -120,7 +120,9 @@ const App = () => {
                 <HStack minHeight={38} alignItems="center" py="$2">
                   <Checkbox
                     checked={lastItemSelected}
-                    onChange={() => setLastItemSelected(!lastItemSelected)}
+                    onChange={() => {
+                      if (item != "") setLastItemSelected(!lastItemSelected);
+                    }}
                   />
                   <Input
                     borderWidth={0}
