@@ -1,5 +1,8 @@
 # gluestack-ui-todos-example
 This todo-app has been built by using gluestack-ui, this app demonstrates how we can use gluestack-ui to build our app efficient and scalable way.
+
+![todoapp-gif](https://github.com/gluestack/gluestack-ui-todos-example/assets/108334845/f849e553-54fa-492c-ba9a-13bec9ec042c)
+
 # Installation 
 Clone the repo by 
 ```sh
@@ -42,6 +45,13 @@ or if you use yarn then
 ```sh
 $ yarn android
 ```
+# Documentation
+
+It's the https://ui.gluestack.io/ website for the latest version of gluestack-ui.
+
+
+
+
 
 
 
