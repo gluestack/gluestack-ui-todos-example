@@ -1,5 +1,5 @@
 # gluestack-ui-todos-example
-This todo-app has been built by using gluestack-ui, this app demonstrates how we can use gluestack-ui to build our app effecient and scalable way.
+This todo-app has been built by using gluestack-ui, this app demonstrates how we can use gluestack-ui to build our app efficient and scalable way.
 # Installation 
 Clone the repo by 
 ```sh
