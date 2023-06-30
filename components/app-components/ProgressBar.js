@@ -1,4 +1,4 @@
-import { Box, HStack, Text } from "../core";
+import { HStack, Text, Progress } from "../core";
 const ProgressBar = ({ totalTasks, completedTasks }) => {
   const getProgress = () => {
     if (totalTasks === 0) {
@@ -9,14 +9,9 @@ const ProgressBar = ({ totalTasks, completedTasks }) => {
 
   return (
     <HStack alignItems="center" w="100%">
-      <Box flex={1} h="$1" bg="$backgroundDark700" borderRadius="$md">
-        <Box
-          h="100%"
-          bg="$primary400"
-          borderRadius="$md"
-          w={`${getProgress()}%`}
-        />
-      </Box>
+      <Progress flex={1} value={getProgress()} bg="$backgroundDark700" h="$1">
+        <Progress.FilledTrack bg="$primary400" h="$1" />
+      </Progress>
       <Text color="$textDark400" ml="$2" fontWeight="$normal" fontSize="$xs">
         {totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed() : 0}%
       </Text>

@@ -1,15 +1,27 @@
-import { createIcon } from '@gluestack-ui/icon';
 import { AsForwarder } from '@gluestack-style/react';
-import { styled } from '../styled';
-
-const StyledIcon: any = styled(
+import { styled } from '../../styled';
+export default styled(
   AsForwarder,
   {
-    color: '$backgroundLight800',
-    _dark: {
-      color: '$backgroundDark400',
+    'w': '100%',
+    'h': '100%',
+    'justifyContent': 'center',
+    'alignItems': 'center',
+    ':checked': {
+      color: '$backgroundLight0',
     },
-    variants: {
+    ':disabled': {
+      opacity: 0.4,
+    },
+    '_dark': {
+      ':checked': {
+        color: '$backgroundDark0',
+      },
+      ':disabled': {
+        opacity: 0.4,
+      },
+    },
+    'variants': {
       size: {
         xs: {
           h: 12,
@@ -33,9 +45,6 @@ const StyledIcon: any = styled(
         },
       },
     },
-    defaultProps: {
-      size: 'md',
-    },
   },
   {
     ancestorStyle: ['_icon'],
@@ -46,9 +55,3 @@ const StyledIcon: any = styled(
     },
   }
 );
-
-export const Icon = createIcon({
-  Root: StyledIcon,
-});
-
-export * from './Icons';

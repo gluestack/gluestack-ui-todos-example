@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Swipeable } from "react-native-gesture-handler";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import { Hoverable } from "./Hoverable";
-import { Checkbox } from "./Checkbox";
-import { Button, Input, Text } from "../core";
+//import { Checkbox } from "./Checkbox";
+import { Button, Input, Text, Checkbox, CheckIcon } from "../core";
 const SwipeableContainer = ({
   todo,
   todos,
@@ -104,10 +104,27 @@ const SwipeableContainer = ({
         onPress={handleDoubleTap}
       >
         <Checkbox
-          label={todo.task}
-          checked={todo.completed}
+          isChecked={todo.completed}
           onChange={() => toggleCheckbox(todo.id)}
-        />
+          size="sm"
+          borderColor="transparent"
+        >
+          <Checkbox.Indicator
+            bg="transparent"
+            sx={{
+              ":checked": {
+                bg: "$primary500",
+                borderColor: "$primary500",
+              },
+            }}
+          >
+            <Checkbox.Icon
+              fontWeight="bold"
+              color="$backgroundDark900"
+              as={CheckIcon}
+            />
+          </Checkbox.Indicator>
+        </Checkbox>
         {editItemId != todo.id ? (
           <Text
             textDecorationLine={todo.completed ? "line-through" : "none"}

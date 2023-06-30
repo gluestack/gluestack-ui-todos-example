@@ -1675,6 +1675,13 @@
     "@react-native-aria/focus" "^0.2.8"
     "@react-native-aria/interactions" "^0.2.10"
 
+"@gluestack-ui/progress@latest":
+  "integrity" "sha512-vo3GkoAAmAUB9hYsGRFEGd2jTLB6hW/PWzPWfo278tctiTAg/TPNTUMcjx+Hpn7S+ONzMHD/aRy+FYmsKhb8iA=="
+  "resolved" "https://registry.npmjs.org/@gluestack-ui/progress/-/progress-0.1.6.tgz"
+  "version" "0.1.6"
+  dependencies:
+    "@gluestack-ui/utils" "^0.1.6"
+
 "@gluestack-ui/provider@^0.1.5", "@gluestack-ui/provider@latest":
   "integrity" "sha512-S3qk1RxYU/VHQH5wItQ17x55wqKbNQoItI2LsRddFqVj2DANst1efCeNz1abKlZz2Ac+vB45zuOJd/qUXCRy4Q=="
   "resolved" "https://registry.npmjs.org/@gluestack-ui/provider/-/provider-0.1.5.tgz"
@@ -1720,6 +1727,14 @@
   "integrity" "sha512-vrrwG5OOKs1O8LhFuX+1jVCjELimhNtDcB7nMaDFGphWt/LaXUIUowpipYEgVvVTsLljPubmJcqiK2vs+qo6Rw=="
   "resolved" "https://registry.npmjs.org/@gluestack-ui/utils/-/utils-0.1.5.tgz"
   "version" "0.1.5"
+  dependencies:
+    "@react-native-aria/focus" "^0.2.7"
+    "react-native-svg" "13.4.0"
+
+"@gluestack-ui/utils@^0.1.6":
+  "integrity" "sha512-1Cxk7Wv3ftzZQgNu3sDBA4+fFNmPoauyCOCc0IVTn0z4DYBbAwyg4kmZozf/7XqouY7k6zs6dQG65twdeUlwzA=="
+  "resolved" "https://registry.npmjs.org/@gluestack-ui/utils/-/utils-0.1.6.tgz"
+  "version" "0.1.6"
   dependencies:
     "@react-native-aria/focus" "^0.2.7"
     "react-native-svg" "13.4.0"

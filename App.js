@@ -1,6 +1,5 @@
 import {
   GluestackUIProvider,
-  Button,
   HStack,
   VStack,
   Checkbox,
@@ -13,6 +12,7 @@ import {
   ProgressBar,
   SwipeableContainer,
   Pressable,
+  CheckIcon,
 } from "./components";
 import { config } from "./gluestack-ui.config";
 import React, { useState, useRef } from "react";
@@ -95,7 +95,10 @@ const App = () => {
                 </Text>
                 <HStack my="$4" alignItems="center">
                   <ProgressBar
-                    completedTasks={getCompletedTasks(todos, lastItemSelected)}
+                    completedTasks={getCompletedTasks(
+                      todos,
+                      item != "" && lastItemSelected
+                    )}
                     totalTasks={item !== "" ? todos.length + 1 : todos.length}
                   />
                 </HStack>
@@ -119,11 +122,33 @@ const App = () => {
               <VStack px="$6">
                 <HStack minHeight={38} alignItems="center" py="$2">
                   <Checkbox
-                    checked={lastItemSelected}
+                    isChecked={item != "" && lastItemSelected}
                     onChange={() => {
-                      if (item != "") setLastItemSelected(!lastItemSelected);
+                      setLastItemSelected(!lastItemSelected);
                     }}
-                  />
+                    size="sm"
+                    isInvalid={false}
+                    isDisabled={item == ""}
+                  >
+                    <Checkbox.Indicator
+                      bg="transparent"
+                      sx={{
+                        ":checked": {
+                          bg: "$primary500",
+                          borderColor: "$primary500",
+                        },
+                        ":active": {
+                          borderColor: "$red500",
+                        },
+                      }}
+                    >
+                      <Checkbox.Icon
+                        fontWeight="bold"
+                        color="$backgroundDark900"
+                        as={CheckIcon}
+                      />
+                    </Checkbox.Indicator>
+                  </Checkbox>
                   <Input
                     borderWidth={0}
                     w="$full"
