@@ -10,7 +10,7 @@ const ProgressBar = ({ totalTasks, completedTasks }) => {
   return (
     <HStack alignItems="center" w="100%">
       <Progress flex={1} value={getProgress()} bg="$backgroundDark700" h="$1">
-        <Progress.FilledTrack bg="$primary400" h="$1" />
+        <Progress.FilledTrack bg="$primary600" h="$1" />
       </Progress>
       <Text color="$textDark400" ml="$2" fontWeight="$normal" fontSize="$xs">
         {totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed() : 0}%

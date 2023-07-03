@@ -110,15 +110,11 @@ const SwipeableContainer = ({
           borderColor="transparent"
         >
           <Checkbox.Indicator
-            sx={{
-              ":checked": {
-                bg: "$primary500",
-                borderColor: "$primary500",
-              },
-              ":active": {
-                borderColor: "$primary500",
-              },
-            }}
+          // sx={{
+          //   ":checked": {
+          //     bg: "$primary500",
+          //   },
+          // }}
           >
             <Checkbox.Icon
               fontWeight="bold"
@@ -126,6 +122,7 @@ const SwipeableContainer = ({
               as={CheckIcon}
             />
           </Checkbox.Indicator>
+          <Checkbox.Label></Checkbox.Label>
         </Checkbox>
         {editItemId != todo.id ? (
           <Text
