@@ -110,10 +110,12 @@ const SwipeableContainer = ({
           borderColor="transparent"
         >
           <Checkbox.Indicator
-            bg="transparent"
             sx={{
               ":checked": {
                 bg: "$primary500",
+                borderColor: "$primary500",
+              },
+              ":active": {
                 borderColor: "$primary500",
               },
             }}

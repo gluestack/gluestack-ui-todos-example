@@ -131,14 +131,13 @@ const App = () => {
                     isDisabled={item == ""}
                   >
                     <Checkbox.Indicator
-                      bg="transparent"
                       sx={{
                         ":checked": {
                           bg: "$primary500",
                           borderColor: "$primary500",
                         },
                         ":active": {
-                          borderColor: "$red500",
+                          borderColor: "$primary500",
                         },
                       }}
                     >
