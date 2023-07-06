@@ -2,22 +2,23 @@ import React, { useState, useRef, useEffect } from "react";
 import { Swipeable } from "react-native-gesture-handler";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import { Hoverable } from "./Hoverable";
-//import { Checkbox } from "./Checkbox";
-import { Button, Input, Text, Checkbox, CheckIcon } from "../core";
+import { Button, Input, Checkbox, CheckIcon, Icon } from "../core";
+
 const SwipeableContainer = ({
   todo,
   todos,
   setTodos,
   swipedItemId,
   setSwipedItemId,
-  editItemId,
-  setEditItemId,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [lastTap, setLastTap] = useState(null);
   const [editItem, setEditItem] = useState(todo.task);
+  const [editItemId, setEditItemId] = useState(null);
+  const [isCompleted, setIsCompleted] = useState(todo.completed);
   const swipeableRef = useRef(null);
   const inputRef = useRef(null);
+
   useEffect(() => {
     if (swipedItemId !== null && swipedItemId !== todo.id) {
       swipeableRef.current.close();
@@ -29,6 +30,7 @@ const SwipeableContainer = ({
     setTodos(updatedTodos);
   };
   const toggleCheckbox = (id) => {
+    setIsCompleted((prev) => !prev);
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
@@ -36,11 +38,13 @@ const SwipeableContainer = ({
   };
   const handleEdit = (id) => {
     setEditItemId(null);
-    if (editItem != "") {
+    if (editItem !== "") {
       const updatedTodos = todos.map((todo) =>
-        todo.id === id ? { ...todo, item: editItem } : todo
+        todo.id === id ? { ...todo, task: editItem } : todo
       );
       setTodos(updatedTodos);
+    } else {
+      setEditItem(todo.task);
     }
   };
   const handleDoubleTap = () => {
@@ -66,20 +70,22 @@ const SwipeableContainer = ({
     setSwipedItemId(null);
     setIsOpen(false);
   };
-  const renderRightActions = (progress, dragX) => {
+
+  const renderRightActions = () => {
     if (swipedItemId !== null && swipedItemId !== todo.id) {
       return null;
     }
     return (
       <Button
         zIndex={9999}
-        h="100%"
+        h="$full"
         p="$3"
         bg="$error900"
-        borderRadius={0}
+        borderRadius="$0"
         onPress={() => handleDelete(todo.id)}
+        focusable={false}
       >
-        <EvilIconsIcon name="trash" size={18} color="white" />
+        <Icon as={EvilIconsIcon} name="trash" size={18} />
       </Button>
     );
   };
@@ -101,73 +107,46 @@ const SwipeableContainer = ({
         bg={isOpen ? "$backgroundDark700" : "$backgroundDark900"}
         key={todo.id}
         alignItems="center"
+        focusable={false}
         onPress={handleDoubleTap}
       >
         <Checkbox
+          aria-label={todo.id}
           isChecked={todo.completed}
           onChange={() => toggleCheckbox(todo.id)}
           size="sm"
+          w="$full"
           borderColor="transparent"
         >
-          <Checkbox.Indicator
-          // sx={{
-          //   ":checked": {
-          //     bg: "$primary500",
-          //   },
-          // }}
-          >
-            <Checkbox.Icon
-              fontWeight="bold"
-              color="$backgroundDark900"
-              as={CheckIcon}
-            />
+          <Checkbox.Indicator>
+            <Checkbox.Icon color="$backgroundDark900" as={CheckIcon} />
           </Checkbox.Indicator>
-          <Checkbox.Label></Checkbox.Label>
-        </Checkbox>
-        {editItemId != todo.id ? (
-          <Text
-            textDecorationLine={todo.completed ? "line-through" : "none"}
-            color="$textDark50"
-            ml="$2"
-            w="100%"
-            lineHeight="$md"
-            fontSize="$sm"
-            fontWeight="$normal"
-          >
-            {editItem}
-          </Text>
-        ) : (
           <Input
             sx={{
               ":focus": {
                 boxShadow: "none",
               },
             }}
-            borderWidth={0}
+            borderWidth="$0"
             w="$full"
             h={22}
           >
             <Input.Input
               pl="$2"
-              editable={!isOpen}
-              borderWidth={0}
+              editable={!isOpen && editItemId === todo.id}
               value={editItem}
-              placeholder=""
               color="$textDark50"
               fontSize="$sm"
               fontWeight="$normal"
               textDecorationLine={todo.completed ? "line-through" : "none"}
-              onChangeText={(val) => {
-                setEditItem(val);
-              }}
-              onSubmitEditing={() => {
-                handleEdit(todo.id);
-              }}
+              onChangeText={(val) => setEditItem(val)}
+              onSubmitEditing={() => handleEdit(todo.id)}
+              onBlur={() => handleEdit(todo.id)}
               autoCompleteType="off"
               ref={inputRef}
             />
           </Input>
-        )}
+        </Checkbox>
       </Hoverable>
     </Swipeable>
   );
