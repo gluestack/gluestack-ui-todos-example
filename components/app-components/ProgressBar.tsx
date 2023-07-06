@@ -1,6 +1,11 @@
 import { HStack, Text, Progress } from "../core";
 
-const ProgressBar = ({ totalTasks, completedTasks }) => {
+interface IProgressBarProps {
+  totalTasks: number;
+  completedTasks: number;
+}
+
+const ProgressBar = ({ totalTasks, completedTasks }: IProgressBarProps) => {
   const getProgress = () => {
     if (totalTasks === 0) {
       return 0;
