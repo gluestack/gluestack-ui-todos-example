@@ -1,6 +1,6 @@
-const getCompletedTasks = (todos, lastItemSelected) => {
+const getCompletedTasks = (todos: any, lastItemSelected: any) => {
   let complete = 0;
-  todos.forEach((item) => {
+  todos.forEach((item: any) => {
     if (item.completed) {
       complete++;
     }
@@ -8,6 +8,7 @@ const getCompletedTasks = (todos, lastItemSelected) => {
   if (lastItemSelected) return complete + 1;
   else return complete;
 };
+
 const getDay = () => {
   const currentDate = new Date();
   const daysOfWeek = [
@@ -22,6 +23,7 @@ const getDay = () => {
   const currentDay = daysOfWeek[currentDate.getDay()];
   return currentDay;
 };
+
 const defaultTodos = [
   {
     id: 1,
@@ -60,4 +62,5 @@ const defaultTodos = [
     completed: false,
   },
 ];
+
 export { getCompletedTasks, getDay, defaultTodos };

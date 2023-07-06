@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Pressable } from "../core";
-const Hoverable = ({ children, ...props }) => {
+
+const Hoverable = ({ children, ...props }: any) => {
   const [hover, setHover] = useState(false);
   return (
     <Pressable

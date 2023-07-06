@@ -15,7 +15,6 @@ const SwipeableContainer = ({
   const [lastTap, setLastTap] = useState(null);
   const [editItem, setEditItem] = useState(todo.task);
   const [editItemId, setEditItemId] = useState(null);
-  const [isCompleted, setIsCompleted] = useState(todo.completed);
   const swipeableRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -25,18 +24,17 @@ const SwipeableContainer = ({
     }
   });
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: any) => {
     const updatedTodos = todos.filter((todo) => todo.id !== id);
     setTodos(updatedTodos);
   };
-  const toggleCheckbox = (id) => {
-    setIsCompleted((prev) => !prev);
+  const toggleCheckbox = (id: any) => {
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
     setTodos(updatedTodos);
   };
-  const handleEdit = (id) => {
+  const handleEdit = (id: any) => {
     setEditItemId(null);
     if (editItem !== "") {
       const updatedTodos = todos.map((todo) =>
@@ -81,7 +79,7 @@ const SwipeableContainer = ({
         h="$full"
         p="$3"
         bg="$error900"
-        borderRadius="$0"
+        borderRadius="$none"
         onPress={() => handleDelete(todo.id)}
         focusable={false}
       >
@@ -113,6 +111,7 @@ const SwipeableContainer = ({
         <Checkbox
           aria-label={todo.id}
           isChecked={todo.completed}
+          value={todo.task}
           onChange={() => toggleCheckbox(todo.id)}
           size="sm"
           w="$full"
@@ -124,7 +123,9 @@ const SwipeableContainer = ({
           <Input
             sx={{
               ":focus": {
-                boxShadow: "none",
+                _web: {
+                  boxShadow: "none",
+                },
               },
             }}
             borderWidth="$0"
@@ -142,7 +143,7 @@ const SwipeableContainer = ({
               onChangeText={(val) => setEditItem(val)}
               onSubmitEditing={() => handleEdit(todo.id)}
               onBlur={() => handleEdit(todo.id)}
-              autoCompleteType="off"
+              autoComplete="off"
               ref={inputRef}
             />
           </Input>
