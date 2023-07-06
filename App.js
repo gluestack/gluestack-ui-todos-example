@@ -1,9 +1,6 @@
 import {
   GluestackUIProvider,
   HStack,
-  VStack,
-  Checkbox,
-  Input,
   Text,
   StyledSafeAreaView,
   StyledScrollView,
@@ -12,28 +9,34 @@ import {
   ProgressBar,
   SwipeableContainer,
   Pressable,
-  CheckIcon,
+  Icon,
+  AddIcon,
+  Box,
 } from "./components";
 import { config } from "./gluestack-ui.config";
 import React, { useState, useRef } from "react";
 import shortid from "shortid";
-import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import { getCompletedTasks, getDay, defaultTodos } from "./utils";
+
 const App = () => {
   const [item, setItem] = useState("");
   const [todos, setTodos] = useState(defaultTodos);
   const [swipedItemId, setSwipedItemId] = useState(null);
   const [lastItemSelected, setLastItemSelected] = useState(false);
-  const [editItemId, setEditItemId] = useState(null);
   const inputRef = useRef(null);
+
   const addTodo = () => {
-    if (item != "") {
+    const lastTodo = todos[todos.length - 1];
+
+    console.log(todos, "____");
+
+    if (lastTodo.task !== "") {
       setTodos([
         ...todos,
         {
           id: shortid.generate(),
-          task: item,
-          completed: lastItemSelected,
+          task: "",
+          completed: false,
         },
       ]);
       setItem("");
@@ -44,8 +47,8 @@ const App = () => {
   return (
     <GluestackUIProvider config={config.theme}>
       <StyledKeyboardAvoidingView
-        w="100%"
-        h="100%"
+        w="$full"
+        h="$full"
         bg="$backgroundDark900"
         behavior="padding"
         keyboardVerticalOffset={60}
@@ -53,18 +56,18 @@ const App = () => {
         <StyledSafeAreaView
           sx={{
             "@base": {
-              bg: "backgroundDark900",
+              bg: "$backgroundDark900",
             },
             "@md": {
               bg: "$black",
             },
           }}
-          w="100%"
-          h="100%"
+          w="$full"
+          h="$full"
         >
           <StyledGestureHandlerRootView
-            w="100%"
-            minHeight="100%"
+            w="$full"
+            minHeight="$full"
             sx={{
               "@md": {
                 justifyContent: "center",
@@ -79,7 +82,7 @@ const App = () => {
               bg="$backgroundDark900"
               sx={{
                 "@base": {
-                  w: "100%",
+                  w: "$full",
                 },
                 "@md": {
                   w: 700,
@@ -89,115 +92,52 @@ const App = () => {
               }}
               flexDirection="column"
             >
-              <VStack px="$6">
+              <Box px="$6">
                 <Text color="$dark900" fontWeight="$bold" fontSize="$xl">
                   {getDay()}
                 </Text>
-                <HStack my="$4" alignItems="center">
-                  <ProgressBar
-                    completedTasks={getCompletedTasks(
-                      todos,
-                      item != "" && lastItemSelected
-                    )}
-                    totalTasks={item !== "" ? todos.length + 1 : todos.length}
-                  />
-                </HStack>
-              </VStack>
+                <ProgressBar
+                  completedTasks={getCompletedTasks(
+                    todos,
+                    item != "" && lastItemSelected
+                  )}
+                  totalTasks={item !== "" ? todos.length + 1 : todos.length}
+                />
+              </Box>
 
-              <VStack>
-                {todos.map((todo, index) => (
-                  <SwipeableContainer
-                    key={index}
-                    todo={todo}
-                    todos={todos}
-                    setTodos={setTodos}
-                    swipedItemId={swipedItemId}
-                    setSwipedItemId={setSwipedItemId}
-                    editItemId={editItemId}
-                    setEditItemId={setEditItemId}
-                    imputRef={inputRef}
-                  />
-                ))}
-              </VStack>
-              <VStack px="$6">
-                <HStack minHeight={38} alignItems="center" py="$2">
-                  <Checkbox
-                    isChecked={item != "" && lastItemSelected}
-                    onChange={() => {
-                      setLastItemSelected(!lastItemSelected);
-                    }}
-                    size="sm"
-                    isInvalid={false}
-                    isDisabled={item == ""}
-                  >
-                    <Checkbox.Indicator
-                    // sx={{
-                    //   ":checked": {
-                    //     bg: "$primary500",
-                    //   },
-                    // }}
-                    >
-                      <Checkbox.Icon
-                        fontWeight="bold"
-                        color="$backgroundDark900"
-                        as={CheckIcon}
-                      />
-                    </Checkbox.Indicator>
-                  </Checkbox>
-                  <Input
-                    borderWidth={0}
-                    w="$full"
-                    h={22}
-                    sx={{
-                      ":focus": {
-                        boxShadow: "none",
-                      },
-                    }}
-                  >
-                    <Input.Input
-                      pl="$2"
-                      borderWidth={0}
-                      value={item}
-                      placeholder=""
-                      color="$textDark50"
-                      fontSize="$sm"
-                      fontWeight="$normal"
-                      textDecorationLine={
-                        lastItemSelected ? "line-through" : "none"
-                      }
-                      onChangeText={(val) => {
-                        setItem(val);
-                      }}
-                      onSubmitEditing={addTodo}
-                      autoCompleteType="off"
-                      ref={inputRef}
-                    />
-                  </Input>
-                </HStack>
+              {todos.map((todo, index) => (
+                <SwipeableContainer
+                  key={index}
+                  todo={todo}
+                  todos={todos}
+                  setTodos={setTodos}
+                  swipedItemId={swipedItemId}
+                  setSwipedItemId={setSwipedItemId}
+                />
+              ))}
 
-                <Pressable
-                  variant="unstyled"
-                  mb="$32"
-                  sx={{
-                    "@md": {
-                      mb: 0,
-                    },
-                  }}
-                  onPress={() => {
-                    addTodo();
-                    setTimeout(() => {
-                      inputRef.current.focus();
-                    }, 100);
-                  }}
-                >
-                  <HStack alignItems="center" mt="$4">
-                    <AntDesignIcon name="plus" size={14} color="#737373" />
-                    <Text ml="$2" fontSize="$sm" color="$textDark50">
-                      Add Task
-                    </Text>
-                  </HStack>
-                </Pressable>
-              </VStack>
+              <Pressable
+                mb="$32"
+                px="$6"
+                sx={{
+                  "@md": {
+                    mb: 0,
+                  },
+                }}
+                onPress={() => {
+                  addTodo();
+                  setTimeout(() => {
+                    inputRef.current.focus();
+                  }, 100);
+                }}
+              >
+                <HStack alignItems="center" mt="$4">
+                  <Icon as={AddIcon} color="$secondary600" />
+                  <Text ml="$2" fontSize="$sm" color="$textDark50">
+                    Add Task
+                  </Text>
+                </HStack>
+              </Pressable>
             </StyledScrollView>
           </StyledGestureHandlerRootView>
         </StyledSafeAreaView>

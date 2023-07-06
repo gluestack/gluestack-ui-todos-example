@@ -1,4 +1,5 @@
 import { HStack, Text, Progress } from "../core";
+
 const ProgressBar = ({ totalTasks, completedTasks }) => {
   const getProgress = () => {
     if (totalTasks === 0) {
@@ -8,7 +9,7 @@ const ProgressBar = ({ totalTasks, completedTasks }) => {
   };
 
   return (
-    <HStack alignItems="center" w="100%">
+    <HStack my="$4" alignItems="center" w="$full">
       <Progress flex={1} value={getProgress()} bg="$backgroundDark700" h="$1">
         <Progress.FilledTrack bg="$primary600" h="$1" />
       </Progress>
